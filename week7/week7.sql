@@ -1,3 +1,5 @@
+use movie_db;
+
 # 1. Show the films with a budget greater than $10 million and a ranking lower than 6.
 select title , budget, ranking
 from movies
@@ -40,3 +42,12 @@ and m.year between 1990 and 2000;
 
 
 # 6. Show the Quentin Tarantino films which have more than 500000 votes and produced before 2000.	 
+select m.title, m.votes, m.year
+from movies m
+join directors d on m.movie_directors_id = d.director_id
+where d.director_name = 'Quentin Tarantino' and m.votes > 500000 and m.year < 2000;
+
+select title, votes, year
+from movies
+where votes > 500000 and year < 2000
+and movie_directors_id in (select director_id from directors where director_name = 'Quentin Tarantino');
